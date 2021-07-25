@@ -38,6 +38,7 @@ public class WuzzufController {
 		data.put("values", "HI");
 
 		JSONObject response = new JSONObject(data);
+                
             return "index";
 	}
     

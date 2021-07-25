@@ -71,7 +71,28 @@
 	  <version>2.6.0</version>
 	  <type>jar</type>
 	 </dependency>
-	
+	 <dependency>
+	  <groupId>com.efsavage.jquery</groupId>
+	  <artifactId>jquery-maven</artifactId>
+	  <version>1.8.2</version>
+	 </dependency>
+	 <dependency>
+	  <groupId>com.jwebmp.plugins.bootstrap</groupId>
+	  <artifactId>jwebmp-bootstrap</artifactId>
+	  <version>1.0.11.2-jre14</version>
+	 </dependency>
+	 <dependency>
+	  <groupId>br.com.thiagomoreira.liferay.plugins.bootstrap-jumbotron-app</groupId>
+	  <artifactId>bootstrap-jumbotron-theme</artifactId>
+	  <version>1.0.1</version>
+	  <type>war</type>
+	 </dependency>
+	 <dependency>
+	  <groupId>br.com.thiagomoreira.liferay.plugins.bootstrap-jumbotron-app</groupId>
+	  <artifactId>bootstrap-jumbotron-app-parent</artifactId>
+	  <version>1.0.1</version>
+	  <type>pom</type>
+	 </dependency>
 	</dependencies>
 
 	<build>

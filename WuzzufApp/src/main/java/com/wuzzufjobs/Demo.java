@@ -22,11 +22,17 @@ public class Demo {
         DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
         ManipulateData mdata = new ManipulateData(wuzzuf);
         Stream<Map.Entry<Object,String>> jobs_count = mdata.count_job();
+        Stream<Map.Entry<Object,String>> count_title = mdata.count_title();
+        Stream<Map.Entry<Object,String>> count_area = mdata.count_area();
+        Stream<Map.Entry<Object,String>> count_skills = mdata.count_skills();
 
         //System.out.println(wuzzuf.slice(0, 10));
         //System.out.println(cdata.display_summary());
         //System.out.println(cdata.display_structure());
-        jobs_count.forEach(s -> System.out.println(s));
+        //jobs_count.forEach(s -> System.out.println(s));
+        //count_title.forEach(s -> System.out.println(s));
+        //count_area.forEach(s -> System.out.println(s));
+        //count_skills.forEach(s -> System.out.println(s));
 
         
 

@@ -5,6 +5,8 @@
  */
 package com.wuzzufjobs;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,4 +42,38 @@ public class ManipulateData {
         return sorted;
     }
     
+    //counting the title
+     public Stream<Map.Entry<Object,String>> count_title(){
+        Map map = wuzdata.stream()
+                .collect (Collectors.groupingBy (t ->t.getString("Title"), Collectors.counting ()));
+        Stream<Map.Entry<Object,String>> title_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+    
+        
+        
+        return title_sorted;
+    }   
+
+
+    //counting the location
+     public Stream<Map.Entry<Object,String>> count_area(){
+        Map map = wuzdata.stream()
+                .collect (Collectors.groupingBy (t ->t.getString("Country"), Collectors.counting ()));
+        Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+  
+        
+        
+        return area_sorted;
+    } 
+    //there is error counting the location
+     public Stream<Map.Entry<Object,String>> count_skills(){
+        Map map = wuzdata.stream()
+                .collect (Collectors.groupingBy (t ->t.getString("Skills"), Collectors.counting ()));
+        Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+  
+        
+        
+        return area_sorted;
+    } 
+
 }
+
