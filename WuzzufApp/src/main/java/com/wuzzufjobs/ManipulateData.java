@@ -5,33 +5,53 @@
  */
 package com.wuzzufjobs;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import smile.data.DataFrame;
+import smile.data.measure.NominalScale;
+import smile.data.vector.BaseVector;
 
 /**
  *
  * @author rohanda
  */
 public class ManipulateData {
-    private static DataFrame wuzdata;
 
-    public ManipulateData(DataFrame data) {
-        wuzdata = data;
-    }
     
-    public DataFrame clean_data(){
+    public DataFrame clean_data(DataFrame wuzdata){
          DataFrame nonNullData= wuzdata.omitNullRows ();
          // TODO Remove duplications
          return nonNullData;
     }
-    public Stream<Map.Entry<Object,String>> count_job(){
+    public Map<String, Integer> count_job(DataFrame wuzdata){
         Map map = wuzdata.stream()
                 .collect (Collectors.groupingBy (t ->t.getString("Company"), Collectors.counting ()));
-        Stream<Map.Entry<Object,String>> sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+           int[] count_of_jobs = ((Collection<Long>) map.values ())
+                .stream ().mapToInt (i -> i.intValue ())
+                .toArray (); 
+        List<String> companies =  new ArrayList<String>( map.keySet());
+        int i = 0;
+        Map<String, Integer> comp_map = new HashMap<>();
+
+        while (i < companies.size()) {
+            comp_map.put(companies.get(i),count_of_jobs[i]);
+            i++;
+        }
+         Map<String, Integer> result = comp_map.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        //Stream<Map.Entry<Object,String>> sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
     /*
     for (Object name: map.keySet()) {
     String key = name.toString();
@@ -39,23 +59,40 @@ public class ManipulateData {
     System.out.println(key + " " + value);
     }*/
                 
-        return sorted;
+        return result;
     }
     
     //counting the title
-     public Stream<Map.Entry<Object,String>> count_title(){
+     public  Map<String, Integer> count_title(DataFrame wuzdata){
         Map map = wuzdata.stream()
                 .collect (Collectors.groupingBy (t ->t.getString("Title"), Collectors.counting ()));
-        Stream<Map.Entry<Object,String>> title_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+       // Stream<Map.Entry<Object,String>> title_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
     
         
-        
-        return title_sorted;
-    }   
+        int[] count_of_titles = ((Collection<Long>) map.values ())
+                .stream ().mapToInt (i -> i.intValue ())
+                .toArray (); 
+        List<String> titles =  new ArrayList<String>( map.keySet());
+        int i = 0;
+        Map<String, Integer> comp_map = new HashMap<>();
 
+        while (i < titles.size()) {
+            comp_map.put(titles.get(i),count_of_titles[i]);
+            i++;
+        }
+         Map<String, Integer> result = comp_map.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        return result;
+    }   
+     
 
     //counting the location
-     public Stream<Map.Entry<Object,String>> count_area(){
+     public Stream<Map.Entry<Object,String>> count_area(DataFrame wuzdata){
         Map map = wuzdata.stream()
                 .collect (Collectors.groupingBy (t ->t.getString("Country"), Collectors.counting ()));
         Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
@@ -65,15 +102,29 @@ public class ManipulateData {
         return area_sorted;
     } 
     //there is error counting the location
-     public Stream<Map.Entry<Object,String>> count_skills(){
-        Map map = wuzdata.stream()
-                .collect (Collectors.groupingBy (t ->t.getString("Skills"), Collectors.counting ()));
-        Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+     public Stream<Map.Entry<Object,String>> count_skills(DataFrame wuzdata){
+       // BaseVector skills_column = wuzdata.apply("Skills");
+       //skills_column.stream().spliterator().forEachRemaining(t->System.out.println(t));
+
+        Map map = wuzdata.stream().collect (Collectors.groupingBy (t ->t.getString("Skills").split(","), Collectors.counting ()));
+       
+       Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
   
-        
-        
         return area_sorted;
     } 
+         public static int[] encodeCategory(DataFrame df, String columnName) {
+        String[] values = df.stringVector (columnName).distinct ().toArray (new String[]{});
+                System.out.println("*****************");
+                System.out.println(values);
+                int i =0;
+               while( i < values.length){
+                   System.out.println(values[i]);
+                   i++;
+               }
+                
+        int[] pclassValues = df.stringVector (columnName).factorize (new NominalScale (values)).toIntArray ();
+        return pclassValues;
+    }
 
 }
 
