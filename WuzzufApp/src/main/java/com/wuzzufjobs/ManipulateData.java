@@ -92,15 +92,34 @@ public class ManipulateData {
      
 
     //counting the location
-     public Stream<Map.Entry<Object,String>> count_area(DataFrame wuzdata){
+     public Map<String, Integer> count_area(DataFrame wuzdata){
         Map map = wuzdata.stream()
                 .collect (Collectors.groupingBy (t ->t.getString("Country"), Collectors.counting ()));
-        Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+        //Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+                int[] count_of_areas = ((Collection<Long>) map.values ())
+                .stream ().mapToInt (i -> i.intValue ())
+                .toArray (); 
+        List<String> area =  new ArrayList<String>( map.keySet());
+        int i = 0;
+        Map<String, Integer> comp_map = new HashMap<>();
+
+        while (i < area .size()) {
+            comp_map.put(area .get(i),count_of_areas[i]);
+            i++;
+        }
+         Map<String, Integer> result_area = comp_map.entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        return result_area;
+    }   
   
         
         
-        return area_sorted;
-    } 
+ 
     //there is error counting the location
      public Stream<Map.Entry<Object,String>> count_skills(DataFrame wuzdata){
        // BaseVector skills_column = wuzdata.apply("Skills");
@@ -108,9 +127,9 @@ public class ManipulateData {
 
         Map map = wuzdata.stream().collect (Collectors.groupingBy (t ->t.getString("Skills").split(","), Collectors.counting ()));
        
-       Stream<Map.Entry<Object,String>> area_sorted = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
+       Stream<Map.Entry<Object,String>> count_skills = map.entrySet().stream().sorted(Map.Entry.comparingByValue());
   
-        return area_sorted;
+        return count_skills;
     } 
          public static int[] encodeCategory(DataFrame df, String columnName) {
         String[] values = df.stringVector (columnName).distinct ().toArray (new String[]{});

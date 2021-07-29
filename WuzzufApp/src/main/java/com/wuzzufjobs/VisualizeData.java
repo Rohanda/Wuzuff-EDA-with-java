@@ -59,6 +59,8 @@ public class VisualizeData {
         
         // Show it
         new SwingWrapper (chart).displayChart ();
+        
+        
     
 }
     public void plotbarchart( List<String> x, List<Integer> y ) throws InterruptedException, InvocationTargetException {
@@ -73,15 +75,48 @@ public class VisualizeData {
         List y1 =  y.subList(0, 5);
 
     CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Popular Title").xAxisTitle("Title").yAxisTitle("Number").build();
+    
  
     // Customize Chart
     chart.getStyler().setHasAnnotations(true);
+    chart.getStyler().setXAxisLabelRotation(45);
+
  
     // Series
-    chart.addSeries("test 1", x1, y1);
+    chart.addSeries("Titles", x1, y1);
     
         new SwingWrapper (chart).displayChart ();
+        
+
 
     }
+    
+    public void plotbarchart2( List<String> x, List<Integer> y ) throws InterruptedException, InvocationTargetException {
+ 
+ //  int[] newWuzArray = Arrays.copyOfRange(wuzzuf.intVector ("TitleValues").toIntArray(), 15, 100);
+   /*      
+   Histogram.of (newWuzArray, 10, false)
+                .canvas ().setAxisLabels ("Title", "Count")
+                .setTitle ("Title frequencies among companies")
+                .window ();
+*/     List x1 =  x.subList(0, 5);
+        List y1 =  y.subList(0, 5);
+
+    CategoryChart chart_area = new CategoryChartBuilder().width(800).height(600).title("Popular Country").xAxisTitle("Country").yAxisTitle("Number").build();
+ 
+    // Customize Chart
+    chart_area.getStyler().setHasAnnotations(true);
+    chart_area.getStyler().setXAxisLabelRotation(45);
+ 
+    // Series
+    chart_area.addSeries("Country", x1, y1);
+    
+        new SwingWrapper (chart_area).displayChart ();
+        
+
+
+    }
+    
+    
     
 }

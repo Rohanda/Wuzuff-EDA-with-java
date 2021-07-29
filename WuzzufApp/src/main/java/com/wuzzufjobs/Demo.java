@@ -40,7 +40,8 @@ public class Demo {
         // Create a pie chart for number of  jobs per company
         vdata.plotpiechart(jobs_count);
         // Get Most popular areas
-        Stream<Map.Entry<Object,String>> count_area = mdata.count_area(wuzzuf);
+        Map<String,Integer> count_area = mdata.count_area(wuzzuf);
+
         // Get Most popular Skills
         Stream<Map.Entry<Object,String>>count_skills = mdata.count_skills(wuzzuf);
         // Create a histogram for most popular titles
@@ -57,7 +58,13 @@ public class Demo {
         //count_area.forEach(s -> System.out.println(s));
         //System.out.println(count_skills);
 
-        
+
+        // Create a histogram for most popular area
+        Set<String> a2 = count_area.keySet();
+        Collection<Integer> b2 = count_area.values();
+        List<String> x_values2 = new ArrayList<>(a2);
+        List<Integer> y_values2 = new ArrayList<>(b2);
+        vdata.plotbarchart2(x_values2,y_values2);        
 
 }
 
