@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com -->
+  <title>Final Java Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
+  }
+  h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }  
+  .jumbotron {
+    background-color: #FCFBFA;
+    
+    padding: 100px 25px;
+    font-family: Montserrat, sans-serif;
+  }
+  .container-fluid {
+    padding: 60px 50px;
+  }
+  .bg-grey {
+    background-color: #F9F6F4;
+  }
+ 
+  .thumbnail {
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+  }
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+  }
+
+  .item h4 {
+    font-size: 30px;
+    line-height: 1.375em;
+    font-weight: 400;
+    font-style: italic;
+    margin: 70px 0;
+  }
+  .item span {
+    font-style: normal;
+  }
+
+
+
+  .navbar {
+    margin-bottom: 0;
+    background-color: #B6D2EE;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+  }
+
+  footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #B6D2EE;
+  }
+
+  
+  </style>
+  </head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+
+  </div>
+</nav>
+<div class="jumbotron text-center">
+  <h1>Final Java Project</h1> 
+  <p>Wuzzuf Exploratory Data Analysis </p> 
+
+
+
+<body>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<body>
+
+<div class="container">
+    <h2>Popular Job Areas Chart For Top 50 Areas</h2>
+    <canvas id="pie-chart" width="800" height="450"></canvas>
+</div>
+
+<script>
+function calculatePoint(i, intervalSize, colorRangeInfo) {
+  var { colorStart, colorEnd, useEndAsStart } = colorRangeInfo;
+  return (useEndAsStart
+    ? (colorEnd - (i * intervalSize))
+    : (colorStart + (i * intervalSize)));
+}
+function interpolateColors(dataLength, colorScale, colorRangeInfo) {
+  var { colorStart, colorEnd } = colorRangeInfo;
+  var colorRange = colorEnd - colorStart;
+  var intervalSize = colorRange / dataLength;
+  var i, colorPoint;
+  var colorArray = [];
+
+  for (i = 0; i < dataLength; i++) {
+    colorPoint = calculatePoint(i, intervalSize, colorRangeInfo);
+    colorArray.push(colorScale(colorPoint));
+  }
+
+  return colorArray;
+}
+
+var xmlhttp = new XMLHttpRequest();
+var url = "/mostpopularareas";
+
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    var obj = JSON.parse(this.responseText);
+    myFunction(obj);
+  }
+};
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+function myFunction(obj) {
+const colorScale = d3.interpolateInferno;
+
+const colorRangeInfo = {
+  colorStart: 0.1,
+  colorEnd: 1,
+  useEndAsStart: false,
+};
+var COLORS = interpolateColors(50, colorScale, colorRangeInfo);
+ new Chart(document.getElementById("pie-chart"), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(obj).slice(0, 50),
+      datasets: [{
+        label: "Jobs",
+        backgroundColor:COLORS,
+        data: Object.values(obj).slice(0, 50)
+      }]
+    },
+    options: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: 'Jobs Per Area'
+      }
+
+    }
+});
+
+}
+
+</script>
+</body>
+</html>
