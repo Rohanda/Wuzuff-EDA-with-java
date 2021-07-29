@@ -52,7 +52,7 @@ public class Demo {
         vdata.plotbarchart(x_values,y_values);
         //System.out.println(wuzzuf.slice(0, 10));
         //System.out.println(cdata.display_summary());
-        //System.out.println(cdata.display_structure());
+        System.out.println(cdata.display_structure());
         //jobs_count.forEach(s -> System.out.println(s));
         //count_title.forEach(s -> System.out.println(s));
         //count_area.forEach(s -> System.out.println(s));
@@ -64,7 +64,8 @@ public class Demo {
         Collection<Integer> b2 = count_area.values();
         List<String> x_values2 = new ArrayList<>(a2);
         List<Integer> y_values2 = new ArrayList<>(b2);
-        vdata.plotbarchart2(x_values2,y_values2);        
+        vdata.plotbarchart2(x_values2,y_values2);  
+       
 
 }
 
