@@ -25,12 +25,12 @@ import org.knowm.xchart.style.Styler.ChartTheme;
 import org.knowm.xchart.style.Styler.LegendPosition;
 import smile.plot.swing.Histogram;
 
-
 /**
  *
  * @author rohanda
  */
 public class VisualizeData {
+
     public void plotpiechart(Map<String, Integer> wuzzuf) {
         //filter to get an array of passenger ages
         //BaseVector title = wuzzuf.apply("Title");
@@ -39,84 +39,98 @@ public class VisualizeData {
         //String[] company_array = company.toStringArray();
         //List<String> title_list = Arrays.asList(title_array);
         //List<String> company_list = Arrays.asList(company_array);
-           PieChart chart = new PieChartBuilder().width(800).height(600).title("My Pie Chart").theme(ChartTheme.GGPlot2).build();
-    // Customize Chart
-    chart.getStyler().setLegendVisible(false);
-    chart.getStyler().setAnnotationType(AnnotationType.LabelAndPercentage);
-    chart.getStyler().setAnnotationDistance(1.15);
-    chart.getStyler().setPlotContentSize(.7);
-    chart.getStyler().setStartAngleInDegrees(90);
+        PieChart chart = new PieChartBuilder().width(800).height(600).title("My Pie Chart").theme(ChartTheme.GGPlot2).build();
+        // Customize Chart
+        chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setAnnotationType(AnnotationType.LabelAndPercentage);
+        chart.getStyler().setAnnotationDistance(1.15);
+        chart.getStyler().setPlotContentSize(.7);
+        chart.getStyler().setStartAngleInDegrees(90);
         // Series
-     
+
         int i = 0;
-        for (String company : wuzzuf.keySet()) 
-            { 
-                if (i <5)
-                chart.addSeries(company,wuzzuf.get(company));
-                i++;
+        for (String company : wuzzuf.keySet()) {
+            if (i < 5) {
+                chart.addSeries(company, wuzzuf.get(company));
             }
-       
-        
+            i++;
+        }
+
         // Show it
-        new SwingWrapper (chart).displayChart ();
-        
-        
-    
-}
-    public void plotbarchart( List<String> x, List<Integer> y ) throws InterruptedException, InvocationTargetException {
- 
- //  int[] newWuzArray = Arrays.copyOfRange(wuzzuf.intVector ("TitleValues").toIntArray(), 15, 100);
-   /*      
+        new SwingWrapper(chart).displayChart();
+
+    }
+
+    public void plotbarchart(List<String> x, List<Integer> y) throws InterruptedException, InvocationTargetException {
+
+
+        //  int[] newWuzArray = Arrays.copyOfRange(wuzzuf.intVector ("TitleValues").toIntArray(), 15, 100);
+        /*      
    Histogram.of (newWuzArray, 10, false)
                 .canvas ().setAxisLabels ("Title", "Count")
                 .setTitle ("Title frequencies among companies")
                 .window ();
-*/     List x1 =  x.subList(0, 5);
-        List y1 =  y.subList(0, 5);
+         */ List x1 = x.subList(0, 5);
+        List y1 = y.subList(0, 5);
 
-    CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Popular Title").xAxisTitle("Title").yAxisTitle("Number").build();
-    
- 
-    // Customize Chart
-    chart.getStyler().setHasAnnotations(true);
-    chart.getStyler().setXAxisLabelRotation(45);
+        CategoryChart chart = new CategoryChartBuilder().width(800).height(600).title("Popular Title").xAxisTitle("Title").yAxisTitle("Number").build();
 
- 
-    // Series
-    chart.addSeries("Titles", x1, y1);
-    
-        new SwingWrapper (chart).displayChart ();
-        
+        // Customize Chart
+        chart.getStyler().setHasAnnotations(true);
+        chart.getStyler().setXAxisLabelRotation(45);
 
+        // Series
+        chart.addSeries("Titles", x1, y1);
+
+        new SwingWrapper(chart).displayChart();
 
     }
-    
-    public void plotbarchart2( List<String> x, List<Integer> y ) throws InterruptedException, InvocationTargetException {
- 
- //  int[] newWuzArray = Arrays.copyOfRange(wuzzuf.intVector ("TitleValues").toIntArray(), 15, 100);
-   /*      
+
+    public void plotbarchart2(List<String> x, List<Integer> y) throws InterruptedException, InvocationTargetException {
+
+
+        //  int[] newWuzArray = Arrays.copyOfRange(wuzzuf.intVector ("TitleValues").toIntArray(), 15, 100);
+        /*      
    Histogram.of (newWuzArray, 10, false)
                 .canvas ().setAxisLabels ("Title", "Count")
                 .setTitle ("Title frequencies among companies")
                 .window ();
-*/     List x1 =  x.subList(0, 5);
-        List y1 =  y.subList(0, 5);
+         */ List x1 = x.subList(0, 5);
+        List y1 = y.subList(0, 5);
 
-    CategoryChart chart_area = new CategoryChartBuilder().width(800).height(600).title("Popular Country").xAxisTitle("Country").yAxisTitle("Number").build();
- 
-    // Customize Chart
-    chart_area.getStyler().setHasAnnotations(true);
-    chart_area.getStyler().setXAxisLabelRotation(45);
- 
-    // Series
-    chart_area.addSeries("Country", x1, y1);
-    
-        new SwingWrapper (chart_area).displayChart ();
-        
+        CategoryChart chart_area = new CategoryChartBuilder().width(800).height(600).title("Popular Country").xAxisTitle("Country").yAxisTitle("Number").build();
 
+        // Customize Chart
+        chart_area.getStyler().setHasAnnotations(true);
+        chart_area.getStyler().setXAxisLabelRotation(45);
+
+        // Series
+        chart_area.addSeries("Country", x1, y1);
+
+        new SwingWrapper(chart_area).displayChart();
 
     }
-    
-    
-    
+
+    void plotpiechart3(Map<String, Long> wuzzuf) {
+        PieChart chart = new PieChartBuilder().width(800).height(600).title("Most Important Skills").theme(ChartTheme.GGPlot2).build();
+        // Customize Chart
+        chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setAnnotationType(AnnotationType.LabelAndPercentage);
+        chart.getStyler().setAnnotationDistance(1.15);
+        chart.getStyler().setPlotContentSize(.7);
+        chart.getStyler().setStartAngleInDegrees(90);
+        // Series
+
+        int i = 0;
+        for (String company : wuzzuf.keySet()) {
+            if (i < 5) {
+                chart.addSeries(company, wuzzuf.get(company));
+            }
+            i++;
+        }
+
+        // Show it
+        new SwingWrapper(chart).displayChart();
+    }
+
 }
