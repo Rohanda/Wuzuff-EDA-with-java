@@ -113,22 +113,29 @@
 
 
 
-<body>
-
 
 
 <div class="container">
-    <h2>Summary of Data</h2>
-    <h4 id="count"></h4>
+    <h2>SUMMARY OF DATA</h2>
+    <h2>This Dataset has 8 Features and 4380 Rows Type</h2>
     <table class="table table-hover" id="myTable">
-    <thead style="background-color:#B6D2EE;color:black">
+        <thead style="background-color:#B6D2EE;color:black">
         <tr>
-            <th>Type</th>
-            <th>Column</th>
+            <th> Column</th>
+            <th>Summary</th>
         </tr>
         </thead>
         <tbody>
+                                                         
+							
+            <tr th:block th:each="i: ${#numbers.sequence(0, 39)}">
+                    <td th:text="${a[i]}"/>
+                    <td th:text="${b[i]}"/>
+
+
+            </tr>
         </tbody>
+    
     </table>
 </div>
 

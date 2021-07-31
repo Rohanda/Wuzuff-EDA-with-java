@@ -63,7 +63,7 @@ public class WuzzufController {
         String[] years_of_Exp = read_csv.apply("YearsExp").toStringArray();
         String[] countries = read_csv.apply("Country").toStringArray();
         String[] skills = read_csv.apply("Skills").toStringArray();
-        String[] factorize_yearsExp = newdata.encodeCategory(read_csv, "YearsExp");
+        
         
 
         model.put("titles", titles);
@@ -74,10 +74,32 @@ public class WuzzufController {
         model.put("years_of_Exp", years_of_Exp);
         model.put("countries", countries);
         model.put("skills", skills);
-        model.put("factorize_yearsExp", factorize_yearsExp);
+        
 
         return "read";
     }
+    
+        @RequestMapping(value = "/summarydisplay")
+        public String summary(Map<String, Object> model) throws IOException, URISyntaxException {
+
+            //PrepareData cdata = new PrepareData();
+            //DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
+            //ManipulateData mdata = new ManipulateData();
+            //DataFrame cleaned_data = mdata.clean_data(wuzzuf);
+            //Map<String, Long> displaySummary = mdata.displaySummary(wuzzuf);
+            //Set<String> a = displaySummary.keySet();
+            //List<String> x_values = new ArrayList<>(a);
+            //Collection<Long> b = count_skills.values();
+            //List<Long> y_values = new ArrayList<>(b);
+            //model.put("b", y_values);
+            //model.put("a", x_values);
+
+              
+            
+            
+            
+            return "summary";
+        }
 
     @RequestMapping(value = "/displayCleanData")
     public String getCleanedData(Map<String, Object> model) throws IOException, URISyntaxException {
@@ -112,6 +134,45 @@ public class WuzzufController {
         model.put("skills", skills);
 
         return "cleandata";
+    }
+    
+        @RequestMapping(value = "/displayfactorizedyear")
+    public String getfactorizedData(Map<String, Object> model) throws IOException, URISyntaxException {
+        PrepareData cdata = new PrepareData();
+        //DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
+        PrepareData mdata = new PrepareData();
+        DataFrame read_csv = mdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
+        ManipulateData newdata = new ManipulateData();
+
+        // HashMap<String, Object> data = new HashMap<String, Object>();
+        //data.put("labels", wuzzuf.names());
+        //data.put("values", "HI");
+        //model.put("DataStructure", dm.convertTable2StringList(structure));
+        //model.put("StructureHeads", dm.getTableHeads(structure));
+        //  model.put("DataSummary", dm.convertTable2StringList(summary));
+        //model.put("SummaryHeads", dm.getTableHeads(summary));
+        String[] titles = read_csv.apply("Title").toStringArray();
+        String[] companies = read_csv.apply("Company").toStringArray();
+        String[] locations = read_csv.apply("Location").toStringArray();
+        String[] types = read_csv.apply("Type").toStringArray();
+        String[] level = read_csv.apply("Level").toStringArray();
+        String[] years_of_Exp = read_csv.apply("YearsExp").toStringArray();
+        String[] countries = read_csv.apply("Country").toStringArray();
+        String[] skills = read_csv.apply("Skills").toStringArray();
+        String[] factorize_yearsExp = newdata.encodeCategory(read_csv, "YearsExp");
+        
+
+        model.put("titles", titles);
+        model.put("companies", companies);
+        model.put("locations", locations);
+        model.put("level", level);
+        model.put("types", types);
+        model.put("years_of_Exp", years_of_Exp);
+        model.put("countries", countries);
+        model.put("skills", skills);
+        model.put("factorize_yearsExp", factorize_yearsExp);
+
+        return "readyears";
     }
 
     @RequestMapping(value = "/popularjobtitle")
@@ -165,22 +226,27 @@ public class WuzzufController {
         return "mostpopulararea";
     }
 
-    @RequestMapping(value = "/skillrequired")
-    public String mostpopularskill(Map<String, Object> model) throws IOException, URISyntaxException {
+        @RequestMapping(value = "/skill")
+        public String mostskill(Map<String, Object> model) throws IOException, URISyntaxException {
 
-        //PrepareData cdata = new PrepareData();
-        //DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
-        //ManipulateData mdata = new ManipulateData();
-        //DataFrame cleaned_data = mdata.clean_data(wuzzuf);
-        //Map<String, Integer> count_skills = mdata.count_skills(wuzzuf);
-        //Set<String> a = count_skills.keySet();
-        //List<String> x_values = new ArrayList<>(a);
-        //Collection<Integer> b = count_skills.values();
-        //List<Integer> y_values = new ArrayList<>(b);
-        //model.put("b", y_values);
-        //model.put("a", x_values);
-        return "importantskills";
-    }
+            PrepareData cdata = new PrepareData();
+            DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
+            ManipulateData mdata = new ManipulateData();
+            DataFrame cleaned_data = mdata.clean_data(wuzzuf);
+            Map<String, Long> count_skills = mdata.count_skills(wuzzuf);
+            Set<String> a = count_skills.keySet();
+            List<String> x_values = new ArrayList<>(a);
+            Collection<Long> b = count_skills.values();
+            List<Long> y_values = new ArrayList<>(b);
+            model.put("b", y_values);
+            model.put("a", x_values);
+
+              
+            
+            
+            
+            return "skills";
+        } 
 
     @RequestMapping(value = "/titleChart")
     public String title_chart(Model model) throws IOException, URISyntaxException {

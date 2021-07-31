@@ -101,7 +101,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="/#project">Home</a>
     </div>
 
   </div>
@@ -113,23 +113,29 @@
 
 
 
+
 <body>
-    
-    
+
 <div class="container">
-    <h2>Most important skills</h2>
+    <h2>Jobs per Area</h2>
     <table class="table table-hover" id="myTable">
     <thead style="background-color:#B6D2EE;color:black">
+<body>
+
+<div class="container">
+    <h2>Jobs per Company</h2>
+    <table class="table table-hover" id="myTable">
+        <thead style="background-color:#B6D2EE;color:black">
         <tr>
-            <th>Most Important Skill</th>
-            <th>Number Of occurrences</th>
+            <th>Country</th>
+            <th>Number Of Demanding Jobs</th>
 
         </tr>
         </thead>
         <tbody>
                                                          
 							
-            <tr th:block th:each="i: ${#numbers.sequence(0, 50)}">
+            <tr th:block th:each="i: ${#numbers.sequence(0, 39)}">
                     <td th:text="${a[i]}"/>
                     <td th:text="${b[i]}"/>
 
