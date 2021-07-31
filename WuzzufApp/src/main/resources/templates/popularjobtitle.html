@@ -161,7 +161,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="/#project">Home</a>
     </div>
 
   </div>
@@ -175,11 +175,28 @@
 
 <body>
 
-<div class="container-fluid">
-    <h2>Jobs per Title</h2>
-    <div id="chart_div"></div> 
+<div class="container">
+    <h2>Most Demanding jobs title</h2>
+    <table class="table table-hover" id="myTable">
+        <thead style="background-color:#B6D2EE;color:black">
+        <tr>
+            <th>Job Title</th>
+            <th>Number Of Jobs</th>
 
-   
+        </tr>
+        </thead>
+        <tbody>
+                                                         
+							
+            <tr th:block th:each="i: ${#numbers.sequence(0, 50)}">
+                    <td th:text="${titles[i]}"/>
+                    <td th:text="${value_title[i]}"/>
+
+
+            </tr>
+        </tbody>
+    
+    </table>
 </div>
 
 

@@ -102,7 +102,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="/#project">Home</a>
     </div>
 
   </div>
@@ -116,7 +116,7 @@
 <body>
 
 <div class="container">
-    <h2>Clean Data and Factorize YearsExp feature</h2>
+    <h2>Display The First 10 Rows Of Cleaned DATA</h2>
     <table class="table table-hover" id="myTable">
         <thead style="background-color:#B6D2EE;color:black">
         <tr>
@@ -131,7 +131,21 @@
         </tr>
         </thead>
         <tbody>
+                                                         
+							
+            <tr th:block th:each="i: ${#numbers.sequence(0, 29)}">
+                    <td th:text="${titles[i]}"/>
+                    <td th:text="${companies[i]}"/>
+                    <td th:text="${locations[i]}"/>
+                    <td th:text="${types[i]}"/>
+                    <td th:text="${level[i]}"/>
+                    <td th:text="${years_of_Exp[i]}"/>
+                    <td th:text="${countries[i]}"/>
+                    <td th:text="${skills[i]}"/>
+
+            </tr>
         </tbody>
+    
     </table>
 </div>
 

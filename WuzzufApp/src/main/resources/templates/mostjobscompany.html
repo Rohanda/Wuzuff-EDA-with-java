@@ -102,7 +102,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="/#project">Home</a>
     </div>
 
   </div>
@@ -121,11 +121,21 @@
         <thead style="background-color:#B6D2EE;color:black">
         <tr>
             <th>Company</th>
-            <th>Jobs</th>
+            <th>Number Of Demanding Jobs</th>
+
         </tr>
         </thead>
         <tbody>
+                                                         
+							
+            <tr th:block th:each="i: ${#numbers.sequence(0, 39)}">
+                    <td th:text="${a[i]}"/>
+                    <td th:text="${b[i]}"/>
+
+
+            </tr>
         </tbody>
+    
     </table>
 </div>
 

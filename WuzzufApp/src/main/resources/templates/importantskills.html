@@ -121,12 +121,22 @@
     <table class="table table-hover" id="myTable">
     <thead style="background-color:#B6D2EE;color:black">
         <tr>
-            <th>Skill</th>
-            <th>Jobs</th>
+            <th>Most Important Skill</th>
+            <th>Number Of occurrences</th>
+
         </tr>
         </thead>
         <tbody>
+                                                         
+							
+            <tr th:block th:each="i: ${#numbers.sequence(0, 50)}">
+                    <td th:text="${a[i]}"/>
+                    <td th:text="${b[i]}"/>
+
+
+            </tr>
         </tbody>
+    
     </table>
 </div>
 

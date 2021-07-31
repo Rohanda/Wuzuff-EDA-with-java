@@ -104,7 +104,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="/#project">Home</a>
     </div>
 
   </div>
@@ -117,7 +117,7 @@
 <body>
 
 <div class="table-responsive-sm">
-    <h2>Display first 10 rows of Data</h2>
+    <h2>Display The  Data</h2>
     <table class="table table-hover" id="myTable">
         <thead style="background-color:#B6D2EE;color:black">
         <tr>
@@ -134,7 +134,7 @@
         <tbody>
                                                          
 							
-            <tr th:block th:each="i: ${#numbers.sequence(0, 9)}">
+            <tr th:block th:each="i: ${#numbers.sequence(0, 29)}">
                     <td th:text="${titles[i]}"/>
                     <td th:text="${companies[i]}"/>
                     <td th:text="${locations[i]}"/>
