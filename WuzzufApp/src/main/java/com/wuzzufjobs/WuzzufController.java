@@ -88,6 +88,7 @@ public class WuzzufController {
             DataFrame cleaned_data = mdata.clean_data(wuzzuf);
             DataFrame displaySummary = cdata.display_structure();
             String[] titles = displaySummary.apply("Column").toStringArray();
+
             String[] Type = displaySummary.apply("Type").toStringArray();
 
        

@@ -29,7 +29,7 @@ public class PrepareData {
     }
 
     public DataFrame display_summary() {
-        return wuz_data.omitNullRows().summary();
+        return wuz_data.summary();
 
     }
 

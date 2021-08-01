@@ -42,7 +42,6 @@ public class ManipulateData {
         // TODO Remove duplications
         return nonNullData;
     }
-
     public Map<String, Integer> count_job(DataFrame wuzdata) {
         Map map = wuzdata.stream()
                 .collect(Collectors.groupingBy(t -> t.getString("Company"), Collectors.counting()));
@@ -167,63 +166,6 @@ public class ManipulateData {
         //System.out.println(finalMap);
         return finalMap;
 
-    }
-
-    public ArrayList<String> DataSummary(DataFrame wuzdata, String column_name) {
-
-        String[] myStringArray = wuzdata.apply(column_name).toStringArray();
-
-        List<String> myStringList = new ArrayList<>(myStringArray.length);
-        for (String s : myStringArray) {
-            myStringList.add(s);
-        }
-
-        Long elementCount
-                = myStringList.stream().count();
-
-        ArrayList<String> oneSummary = new ArrayList<>();
-        oneSummary.add(column_name);
-        oneSummary.add(elementCount.toString());
-
-        return oneSummary;
-
-    }
-
-    public List<List> displaySummary() throws IOException, URISyntaxException {
-        PrepareData cdata = new PrepareData();
-        DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
-        ArrayList<String> title = DataSummary(wuzzuf, "Title");
-        ArrayList<String> company = DataSummary(wuzzuf, "Company");
-        ArrayList<String> location = DataSummary(wuzzuf, "Location");
-        ArrayList<String> type = DataSummary(wuzzuf, "Type");
-        ArrayList<String> level = DataSummary(wuzzuf, "Level");
-        ArrayList<String> yearsExp = DataSummary(wuzzuf, "YearsExp");
-        ArrayList<String> skills = new ArrayList<String>();
-        skills.add("Skills");
-        skills.add("3985");
-
-        List<List> display_summary = Arrays.asList(title, company, location, type, level, yearsExp, skills);
-
-        return display_summary;
-    }
-    
-    public Map<String, Long> data_summary(DataFrame wuzdata, String column_name) {
-        String[] myStringArrayTitle = wuzdata.apply(column_name).toStringArray();
-        List<String> myStringList = new ArrayList<>(myStringArrayTitle.length);
-        for (String s : myStringArrayTitle) {
-            myStringList.add(s);
-        }
-        Long elementCount
-                = myStringList.stream().count();
-
-        // Creating a HashMap
-        Map<String, Long> summaryMapping = new HashMap<>();
-
-        // Adding key-value pairs to a HashMap
-        summaryMapping.put(column_name, elementCount);
-        System.out.print(summaryMapping);
-
-        return summaryMapping;
     }
 
     public String[] encodeCategory(DataFrame df, String columnName) {
