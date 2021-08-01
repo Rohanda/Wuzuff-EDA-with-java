@@ -82,17 +82,21 @@ public class WuzzufController {
         @RequestMapping(value = "/summarydisplay")
         public String summary(Map<String, Object> model) throws IOException, URISyntaxException {
 
-            //PrepareData cdata = new PrepareData();
-            //DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
-            //ManipulateData mdata = new ManipulateData();
-            //DataFrame cleaned_data = mdata.clean_data(wuzzuf);
-            //Map<String, Long> displaySummary = mdata.displaySummary(wuzzuf);
-            //Set<String> a = displaySummary.keySet();
+            PrepareData cdata = new PrepareData();
+            DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
+            ManipulateData mdata = new ManipulateData();
+            DataFrame cleaned_data = mdata.clean_data(wuzzuf);
+            DataFrame displaySummary = cdata.display_structure();
+            String[] titles = displaySummary.apply("Column").toStringArray();
+            String[] Type = displaySummary.apply("Type").toStringArray();
+
+       
             //List<String> x_values = new ArrayList<>(a);
             //Collection<Long> b = count_skills.values();
             //List<Long> y_values = new ArrayList<>(b);
-            //model.put("b", y_values);
-            //model.put("a", x_values);
+            model.put("column", titles);
+            model.put("type", Type);
+            
 
               
             
@@ -136,7 +140,7 @@ public class WuzzufController {
         return "cleandata";
     }
     
-        @RequestMapping(value = "/displayfactorizedyear")
+    @RequestMapping(value = "/displayfactorizedyear")
     public String getfactorizedData(Map<String, Object> model) throws IOException, URISyntaxException {
         PrepareData cdata = new PrepareData();
         //DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
@@ -302,6 +306,34 @@ public class WuzzufController {
         model.addAttribute("chartData", companies);
 
         return "jobspercompanychart";
+    }
+    @RequestMapping(value = "/areaChart")
+    public String area_chart(Model model) throws IOException, URISyntaxException {
+        PrepareData cdata = new PrepareData();
+        DataFrame wuzzuf = cdata.read_csv("src/main/resources/static/Wuzzuf_Jobs.csv");
+        ManipulateData mdata = new ManipulateData();
+        DataFrame cleaned_data = mdata.clean_data(wuzzuf);
+        Map<String, Integer> count_area = mdata.count_area(wuzzuf);
+        Set<String> a = count_area.keySet();
+        List<String> x_values = new ArrayList<>(a);
+        Collection<Integer> b = count_area.values();
+        List<Integer> y_values = new ArrayList<>(b);
+        List<List> chart_data = new ArrayList<List>();
+
+        // Take only a subset of the map data
+        HashMap sub_titles = new HashMap();
+        int i = 0;
+        for (String name : count_area.keySet()) {
+            if (i > 4) {
+                break;
+            }
+            sub_titles.put(name, count_area.get(name));
+            i++;
+        }
+
+        model.addAttribute("chartData", sub_titles);
+
+        return "popularareachart";
     }
 
 }

@@ -75,7 +75,7 @@ public class Demo {
         //display summary in a list of lists
         System.out.println("Display Summary: " + mdata.displaySummary());
 
-        System.out.println("Factorize of YearsExp: " + Arrays.toString(mdata.encodeCategory(wuzzuf, "YearsExp")));
+         System.out.println("Factorize of YearsExp: " + Arrays.toString(mdata.encodeCategory(wuzzuf, "YearsExp")));
 
     }
 
