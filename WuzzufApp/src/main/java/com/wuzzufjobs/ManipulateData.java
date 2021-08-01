@@ -206,6 +206,25 @@ public class ManipulateData {
 
         return display_summary;
     }
+    
+    public Map<String, Long> data_summary(DataFrame wuzdata, String column_name) {
+        String[] myStringArrayTitle = wuzdata.apply(column_name).toStringArray();
+        List<String> myStringList = new ArrayList<>(myStringArrayTitle.length);
+        for (String s : myStringArrayTitle) {
+            myStringList.add(s);
+        }
+        Long elementCount
+                = myStringList.stream().count();
+
+        // Creating a HashMap
+        Map<String, Long> summaryMapping = new HashMap<>();
+
+        // Adding key-value pairs to a HashMap
+        summaryMapping.put(column_name, elementCount);
+        System.out.print(summaryMapping);
+
+        return summaryMapping;
+    }
 
     public String[] encodeCategory(DataFrame df, String columnName) {
         String[] values = df.stringVector(columnName).distinct().toArray(new String[]{});
